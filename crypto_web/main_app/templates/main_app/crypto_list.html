@@ -69,11 +69,16 @@
                     <h3 class="fs-5">{{ crypto.supply }} <span class="text-secondary fs-5">{{ crypto.symbol }}</span></h3>
                 </td>
                 <td scope="col">
-                    {% if not user.is_authenticated or crypto.pk not in user_favorites %}
+                    {% if not user.is_authenticated %}
+                    <a href="" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#login">
+                        <i class="bi bi-star"></i>
+                    </a>
+                    {% else %}
+                    {% if crypto.pk not in user_favorites %}
                     <form action="{% url 'add_in_favorite' %}" method="post">
                         {% csrf_token %}
                         <input type="number" name="crypt_pk" id="crypt_pk" value="{{ crypto.pk }}" hidden>
-                        <button type="submit" class="btn btn-outline-secondary" {% if not user.is_authenticated %} data-bs-toggle="modal" data-bs-target="#login" {% endif %}>
+                        <button type="submit" class="btn btn-outline-secondary">
                             <i class="bi bi-star"></i>
                         </button>
                     </form>
@@ -81,10 +86,11 @@
                     <form action="{% url 'delete_from_favorite' %}" method="post">
                         {% csrf_token %}
                         <input type="number" name="crypt_pk" id="crypt_pk" value="{{ crypto.pk }}" hidden>
-                        <button type="submit" class="btn btn-outline-warning" {% if not user.is_authenticated %} data-bs-toggle="modal" data-bs-target="#login" {% endif %}>
+                        <button type="submit" class="btn btn-outline-warning">
                             <i class="bi bi-star-fill"></i>
                         </button>
                     </form>
+                    {% endif %}
                     {% endif %}
                 </td>
             </tr>
