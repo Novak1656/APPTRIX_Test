@@ -16,5 +16,10 @@ class Favorites(models.Model):
         related_name='favorites',
     )
 
+    class Meta:
+        verbose_name = 'Favorites'
+        verbose_name_plural = 'Favorite',
+        ordering = ['user']
+
     def __str__(self):
         return f'{self.user}: {self.crypto}'

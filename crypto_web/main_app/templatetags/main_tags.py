@@ -5,6 +5,9 @@ register = Library()
 
 @register.filter
 def read_news_data(news_data: dict, key: str) -> str:
+    """
+        Filter for unpacking news data
+    """
     data = news_data.get(key)
     if key == 'publishedAt':
         return data.replace('T', ' ').replace('Z', '')

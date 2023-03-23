@@ -4,7 +4,7 @@ from .views import CryptocurrencyAPIViewSet
 
 
 router = DefaultRouter()
-router.register(r'crypto', CryptocurrencyAPIViewSet)
+router.register(r'crypto', CryptocurrencyAPIViewSet, basename='crypto')
 
 urlpatterns = [
     path('', include(router.urls)),

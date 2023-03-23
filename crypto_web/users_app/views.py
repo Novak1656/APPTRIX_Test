@@ -3,6 +3,7 @@ from django.contrib.auth import login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db import transaction
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import FormView, TemplateView
@@ -13,6 +14,9 @@ from .models import Favorites
 
 
 class RegistrationView(FormView):
+    """
+        Registration page
+    """
     template_name = 'users_app/user_registration.html'
     form_class = RegistrationForm
     success_url = reverse_lazy('main_page')
@@ -30,6 +34,9 @@ class RegistrationView(FormView):
 
 @require_http_methods(['POST'])
 def login_view(request):
+    """
+        Endpoint for user login
+    """
     resp_data = request.POST
     model = get_user_model()
     user = model.objects.filter(username=resp_data.get('username'))
@@ -44,6 +51,9 @@ def login_view(request):
 
 
 def logout_view(request):
+    """
+        Endpoint for user login
+    """
     if request.user.is_authenticated:
         logout(request)
     return redirect('main_page')
@@ -51,7 +61,11 @@ def logout_view(request):
 
 @login_required
 @require_http_methods(['POST'])
+@transaction.atomic
 def add_in_favorite(request):
+    """
+         Endpoint for add cryptocurrency in favorite
+    """
     crypt_pk = request.POST.get('crypt_pk')
     crypt_obj = get_object_or_404(Cryptocurrency, pk=crypt_pk)
     Favorites.objects.create(user=request.user, crypto=crypt_obj)
@@ -60,7 +74,11 @@ def add_in_favorite(request):
 
 @login_required
 @require_http_methods(['POST'])
+@transaction.atomic
 def delete_from_favorite(request):
+    """
+        Endpoint for delete cryptocurrency from favorite
+    """
     crypt_pk = request.POST.get('crypt_pk')
     crypt_obj = get_object_or_404(Favorites, user=request.user, crypto_id=crypt_pk)
     crypt_obj.delete()
@@ -68,6 +86,9 @@ def delete_from_favorite(request):
 
 
 class UserFavoritesView(LoginRequiredMixin, TemplateView):
+    """
+        Favorites page
+    """
     template_name = 'main_app/crypto_list.html'
     extra_context = {'page_title': 'My Favorites'}
     login_url = reverse_lazy('user_login')

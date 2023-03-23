@@ -8,7 +8,8 @@ class Cryptocurrency(models.Model):
         max_length=255
     )
     rank = models.IntegerField(
-        verbose_name='CMC Rank'
+        verbose_name='CMC Rank',
+        null=True
     )
     max_supply = models.DecimalField(
         verbose_name='Max Supply',
@@ -25,6 +26,7 @@ class Cryptocurrency(models.Model):
     symbol = models.CharField(
         verbose_name='Symbol',
         max_length=100,
+        unique=True
     )
     market_cap = models.DecimalField(
         verbose_name='Market Cap',

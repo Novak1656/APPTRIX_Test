@@ -4,6 +4,9 @@ from django import forms
 
 
 class RegistrationForm(UserCreationForm):
+    """
+        New User Registration Form
+    """
     class Meta:
         model = get_user_model()
         fields = ('username', 'email', 'password1', 'password2')
