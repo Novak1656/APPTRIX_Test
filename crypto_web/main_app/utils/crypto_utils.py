@@ -11,7 +11,7 @@ class CryptoMixin:
 
         parameters = {
             'convert': 'USD',
-            'limit': 1000,
+            'limit': 100,
             'sort': 'market_cap',
             'sort_dir': 'desc'
         }
