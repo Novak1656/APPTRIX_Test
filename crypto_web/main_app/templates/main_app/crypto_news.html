@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load main_tags %}
+
+{% block title %} CryptoWeb {% endblock %}
+
+{% block content %}
+<div class="container text-light">
+    <div class="text-center boder-bottom-border-info">
+        <h1>News</h1>
+    </div>
+    <div class="album py-5 bg-dark">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                {% for new_data in news %}
+                <div class="col">
+                    <div class="card shadow-sm h-100 text-light bg-dark border-light">
+                        {% if new_data|read_news_data:'urlToImage' %}
+                        <img class="bd-placeholder-img card-img-top" src="{{ new_data|read_news_data:'urlToImage' }}" alt="{{ new_data|read_news_data:'title' }}"/>
+                        {% endif %}
+                        <div class="card-title text-center">
+                            <p class="fs-4">{{ new_data|read_news_data:'title' }}</p>
+                            {% if new_data|read_news_data:'author' %}
+                            <p>Author: {{ new_data|read_news_data:'author' }}</p>
+                            {% endif %}
+                            <small class="text-muted">Published: {{ new_data|read_news_data:'publishedAt' }}</small>
+                        </div>
+                        <div class="card-body">
+                            <p>{{ new_data|read_news_data:'description'|truncatechars:200 }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{{ new_data|read_news_data:'url' }}" class="btn btn-outline-info w-100" target="_blank">About</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

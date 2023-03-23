@@ -1,0 +1,23 @@
+<!-- Modal Exit -->
+<a class="nav nav-link me-3 py-2 text-white text-decoration-none" href="" data-bs-toggle="modal" data-bs-target="#exit">
+    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-x-fill" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6.146-2.854a.5.5 0 0 1 .708 0L14 6.293l1.146-1.147a.5.5 0 0 1 .708.708L14.707 7l1.147 1.146a.5.5 0 0 1-.708.708L14 7.707l-1.146 1.147a.5.5 0 0 1-.708-.708L13.293 7l-1.147-1.146a.5.5 0 0 1 0-.708z"/>
+    </svg>
+</a>
+<div class="modal fade" id="exit" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark border">
+            <div class="modal-header">
+                <h5 class="modal-title text-white" id="exampleModalLabel">Logout</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="display-9 text-white">Are you sure you want to logout?</p>
+            </div>
+            <div class="modal-footer">
+                <a type="button" class="btn btn-outline-success" href="{% url 'user_logout' %}">Yes</a>
+                <button class="btn btn-outline-danger" data-bs-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>

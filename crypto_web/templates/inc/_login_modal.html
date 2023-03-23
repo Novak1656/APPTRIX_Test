@@ -1,0 +1,32 @@
+<!-- Modal Login -->
+<a href="" class="nav nav-link me-3 py-2 btn btn-outline-info text-light" data-bs-toggle="modal" data-bs-target="#login">Log in</a>
+<div class="modal fade" id="login" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark border">
+            <div class="modal-header">
+                <h5 class="modal-title text-white" id="exampleModalLabel">Login</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {% if messages %}
+                <ul class="text-danger">
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                <form action="{% url 'user_login' %}" method="post" id="login_form">
+                    {% csrf_token %}
+                    <label for="username" class="text-light">Username:</label>
+                    <input type="text" name="username" id="username" class="form-control" placeholder="Input your username..." required>
+                    <label for="password" class="text-light mt-2">Password:</label>
+                    <input type="password" name="password" id="password" class="form-control" placeholder="Input your password..." required>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <input type="submit" form="login_form" class="btn btn-outline-info" value="Login">
+                <a type="button" class="btn btn-outline-secondary" href="{% url 'user_register' %}">Create account</a>
+            </div>
+        </div>
+    </div>
+</div>

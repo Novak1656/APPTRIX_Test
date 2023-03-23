@@ -1,10 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
+    <title>{% block title %}{% endblock %}</title>
 </head>
-<body>
+
+<body class="bg-dark">
+
+<header>
+    <nav class="navbar navbar-expand-xl navbar-dark bg-dark border-bottom border-light" aria-label="Sixth navbar example">
+        <div class="container-fluid container">
+            <a class="navbar-brand display-6" href="{% url 'main_page' %}">
+                <span class="fs-3">CryptoWeb</span>
+            </a>
+            <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample06" aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse collapse" id="navbarsExample06" style="">
+                <ul class="navbar-nav me-auto mb-2 mb-xl-0 justify-content-center mx-auto">
+                    <li class="nav-item mx-1">
+                        <a class="nav-link text-white" aria-current="page" href="{% url 'main_page' %}">List</a>
+                    </li>
+
+                    <li class="nav-item mx-1">
+                        <a class="nav-link text-white" href="{% url 'news' %}">News</a>
+                    </li>
+                    <li class="nav-item mx-1">
+                        <a class="nav-link text-white" href="{% url 'user_favorites' %}" {% if not user.is_authenticated %} data-bs-toggle="modal" data-bs-target="#login" {% endif %}>Favorites</a>
+                    </li>
+                </ul>
+
+                {% if user.is_authenticated %}
+                {% include 'inc/_exit_modal.html' %}
+                {% else %}
+                {% include 'inc/_login_modal.html' %}
+                {% endif %}
+
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main>
+    <div class="bg-dark">
+        {% block content %} {% endblock %}
+    </div>
+</main>
+
+<footer class="text-muted py-5 bg-dark">
+    <div class="container border-top border-light">
+        <p class="float-start mb-1 mt-3">©acclrtrrr</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 
 </body>
 </html>

@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ page_title }} {% endblock %}
+
+{% block content %}
+<div class="container text-light">
+    <div class="text-center boder-bottom-border-info">
+        <h1>{{ page_title }}</h1>
+    </div>
+    <form role="search" method="get" class="w-100" action="{% url 'main_page' %}">
+        <input class="form-control" type="search" name="search_value" placeholder="Search" aria-label="Search" value="{{ search_value }}">
+    </form>
+    <div class="mt-3">
+        <table class="table text-light w-100">
+            <thead>
+            <tr class="text-center">
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Change in 1h</th>
+                <th scope="col">Change in 24h</th>
+                <th scope="col">Change in 7d</th>
+                <th scope="col">Market Cap</th>
+                <th scope="col">Volume in 24h</th>
+                <th scope="col">Total Supply</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for crypto in crypto_info %}
+            <tr>
+                <th scope="col">
+                    <h3 class="fs-5">{{ forloop.counter }}</h3>
+                </th>
+                <td scope="col">
+                    <h3 class="fs-5">{{ crypto.name }} <span class="text-secondary fs-5">{{ crypto.symbol }}</span></h3>
+                </td>
+                <td scope="col">
+                    <h3 class="fs-5">${{ crypto.price }}</h3>
+                </td>
+                <td scope="col">
+                    {% if crypto.percent_change_1h > 0 %}
+                    <h3 class="text-success fs-5"><i class="bi bi-caret-up"></i> {{ crypto.percent_change_1h }}%</h3>
+                    {% else %}
+                    <h3 class="text-danger fs-5"><i class="bi bi-caret-down"></i> {% widthratio crypto.percent_change_1h 1 -1 %}%</h3>
+                    {% endif %}
+                </td>
+                <td scope="col">
+                    {% if crypto.percent_change_24h > 0 %}
+                    <h3 class="text-success fs-5"><i class="bi bi-caret-up"></i> {{ crypto.percent_change_24h }}%</h3>
+                    {% else %}
+                    <h3 class="text-danger fs-5"><i class="bi bi-caret-down"></i> {% widthratio crypto.percent_change_24h 1 -1 %}%</h3>
+                    {% endif %}
+                </td>
+                <td scope="col">
+                    {% if crypto.percent_change_7d > 0 %}
+                    <h3 class="text-success fs-5"><i class="bi bi-caret-up"></i> {{ crypto.percent_change_7d }}%</h3>
+                    {% else %}
+                    <h3 class="text-danger fs-5"><i class="bi bi-caret-down"></i> {% widthratio crypto.percent_change_7d 1 -1 %}%</h3>
+                    {% endif %}
+                </td>
+                <td scope="col">
+                    <h3 class="fs-5">${{ crypto.market_cap }}</h3>
+                </td>
+                <td scope="col">
+                    <h3 class="fs-5">${{ crypto.volume_24h }}</h3>
+                </td>
+                <td scope="col">
+                    <h3 class="fs-5">{{ crypto.supply }} <span class="text-secondary fs-5">{{ crypto.symbol }}</span></h3>
+                </td>
+                <td scope="col">
+                    {% if not user.is_authenticated or crypto.pk not in user_favorites %}
+                    <form action="{% url 'add_in_favorite' %}" method="post">
+                        {% csrf_token %}
+                        <input type="number" name="crypt_pk" id="crypt_pk" value="{{ crypto.pk }}" hidden>
+                        <button type="submit" class="btn btn-outline-secondary" {% if not user.is_authenticated %} data-bs-toggle="modal" data-bs-target="#login" {% endif %}>
+                            <i class="bi bi-star"></i>
+                        </button>
+                    </form>
+                    {% else %}
+                    <form action="{% url 'delete_from_favorite' %}" method="post">
+                        {% csrf_token %}
+                        <input type="number" name="crypt_pk" id="crypt_pk" value="{{ crypto.pk }}" hidden>
+                        <button type="submit" class="btn btn-outline-warning" {% if not user.is_authenticated %} data-bs-toggle="modal" data-bs-target="#login" {% endif %}>
+                            <i class="bi bi-star-fill"></i>
+                        </button>
+                    </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
