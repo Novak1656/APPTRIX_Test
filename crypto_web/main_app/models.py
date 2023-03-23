@@ -11,16 +11,12 @@ class Cryptocurrency(models.Model):
         verbose_name='CMC Rank',
         null=True
     )
-    max_supply = models.DecimalField(
+    max_supply = models.BigIntegerField(
         verbose_name='Max Supply',
-        max_digits=19,
-        decimal_places=2,
         null=True
     )
-    supply = models.DecimalField(
+    supply = models.BigIntegerField(
         verbose_name='Total Supply',
-        max_digits=19,
-        decimal_places=2,
         null=True
     )
     symbol = models.CharField(
@@ -28,10 +24,8 @@ class Cryptocurrency(models.Model):
         max_length=100,
         unique=True
     )
-    market_cap = models.DecimalField(
+    market_cap = models.BigIntegerField(
         verbose_name='Market Cap',
-        max_digits=19,
-        decimal_places=2,
         null=True
     )
     percent_change_1h = models.DecimalField(
@@ -57,10 +51,8 @@ class Cryptocurrency(models.Model):
         max_digits=10,
         decimal_places=2,
     )
-    volume_24h = models.DecimalField(
+    volume_24h = models.BigIntegerField(
         verbose_name='Volume in 24h',
-        max_digits=19,
-        decimal_places=2,
         null=True
     )
 

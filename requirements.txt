@@ -1,4 +1,0 @@
-Django==4.1.7
-python-decouple==3.8
-newsapi-python==0.2.7
-djangorestframework==3.14.0

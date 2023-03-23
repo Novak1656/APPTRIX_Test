@@ -1,0 +1,8 @@
+Django==4.1.7
+python-decouple==3.8
+newsapi-python==0.2.7
+djangorestframework==3.14.0
+gunicorn==20.1.0
+psycopg2==2.9.5
+whitenoise==6.4.0
+dj-database-url==1.2.0
